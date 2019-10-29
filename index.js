@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const { installDevDeps } = require('./dev-dependencies-installer');
 const { installDeps } = require('./dependencies-installer');
 const babelWriter = require('./writers/babel-writer').write;
@@ -11,10 +13,10 @@ const fs = require('fs');
 
 const path = process.argv[2];
 
-if (path !== '.' && !fs.existsSync(path)) {
+if(path !== '.' && !fs.existsSync(path)) {
   fs.mkdirSync(path);
-  fs.mkdirSync(`${path}/src`)
-};
+}
+fs.mkdirSync(`${path}/src`);
 
 Promise.all([
   babelWriter(path),
@@ -29,5 +31,3 @@ Promise.all([
     installDeps(path);
     installDevDeps(path);
   });
-
-
